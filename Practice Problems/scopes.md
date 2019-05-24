@@ -91,3 +91,72 @@ reassign('May');
 getName('Joe'); // 'Joe'
 ```
 
+## Lexical Scope
+
+##### What is lexical scope?
+
+Lexical scope is when the inner functions of a group of nested functions has access to the variables in their parent scope even if the parent function has returned. However, the parent functions do not have access to the inner function's variables. It only works one way.
+
+A variable with the same name in the innermost function of a nested group of functions will take precedence over the variable in the parent functions.
+
+###### Examples:
+
+1) What does `reassignNum()` return?
+```js
+function reassignNum () {
+  var num = 100;
+
+  function reassignOnce () {
+    num = 60;
+    function reassignTwice () {
+      num = num * 2;
+    }
+    reassignTwice();
+  }
+  reassignOnce();
+  return num;
+}
+
+reassignNum(); // 120
+```
+
+2) What does `reassignNum()` return?
+
+```js
+function reassignNum () {
+  var num = 100;
+
+  function reassignOnce () {
+    var num = 60;
+    function reassignTwice () {
+      num = num * 2;
+    }
+    reassignTwice();
+  }
+  reassignOnce();
+  return num;
+}
+
+reassignNum(); // 100
+```
+
+3) What does `reassignNum()` return?
+
+```js
+function reassignNum () {
+  var num = 100;
+
+  function reassignOnce () {
+    num = 60;
+    function reassignTwice () {
+      var num = num * 2;
+    }
+    reassignTwice();
+  }
+  reassignOnce();
+  return num;
+}
+
+reassignNum(); // 60
+```
+
